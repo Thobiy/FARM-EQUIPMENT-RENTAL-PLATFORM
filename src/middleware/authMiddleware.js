@@ -1,6 +1,10 @@
+console.log("JWT_SECRET:", process.env.JWT_SECRET);
+
 import jwt from "jsonwebtoken";
 
 const protect = (req, res, next) => {
+  console.log("Authorization header:", req.headers.authorization);
+
   let token;
 
   if (
@@ -8,6 +12,7 @@ const protect = (req, res, next) => {
     req.headers.authorization.startsWith("Bearer")
   ) {
     try {
+      console.log("Authorization header received:", req.headers.authorization);
       token = req.headers.authorization.split(" ")[1];
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
